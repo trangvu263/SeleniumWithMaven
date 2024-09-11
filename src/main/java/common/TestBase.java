@@ -9,7 +9,7 @@ public class TestBase {
         String projectPath = System.getProperty("user.dir");
         System.setProperty("webdriver.chrome.driver", projectPath + "/driver/chromedriver");
         driver = new ChromeDriver();
-
+//test
         driver.get("https://demoqa.com/text-box");
         driver.manage().window().maximize();
     }
