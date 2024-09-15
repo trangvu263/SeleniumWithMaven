@@ -10,13 +10,9 @@ public class ElementsPage extends Page {
         super(driverWeb);
     }
 
-    public void clickElementGroup() {
-        WebElement element = dr.findElement(By.xpath("//div[text()='Elements']"));
+    public void clickElement(String elementName) {
+        String elementXpath = "//span[text()='" + elementName + "']";
+        WebElement element = wait.until(ExpectedConditions.visibilityOf(dr.findElement(By.xpath(elementXpath))));
         element.click();
-    }
-
-    public void clickTextbox() {
-        WebElement textboxElement = wait.until(ExpectedConditions.visibilityOf(dr.findElement(By.xpath("//span[text()='Text Box']"))));
-        textboxElement.click();
     }
 }

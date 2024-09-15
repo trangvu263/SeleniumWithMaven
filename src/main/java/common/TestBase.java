@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class TestBase {
-    public WebDriver driver;
+    public static WebDriver driver;
     public void openWeb() {
         String projectPath = System.getProperty("user.dir");
         System.setProperty("webdriver.chrome.driver", projectPath + "/driver/chromedriver");
@@ -15,6 +15,6 @@ public class TestBase {
     }
 
     public void closeWeb() {
-        driver.close();
+        driver.quit();
     }
 }
