@@ -15,8 +15,6 @@ public class TextboxPage extends Page {
     }
 
     public void inputFullName(String name) {
-//        WebElement fullName = wait.until(ExpectedConditions.visibilityOf(dr.findElement(By.xpath("//input[@placeholder='Full Name']"))));
-
         WebElement fullName = dr.findElement(By.xpath("//input[@placeholder='Full Name']"));
         fullName.sendKeys(name);
     }
@@ -59,7 +57,6 @@ public class TextboxPage extends Page {
         boolean a = isResultDisplayed();
         assertFalse(a);
     }
-
 
         public void verifyEmailBorder(String expectedColor) {
         WebElement emailAddress = dr.findElement(By.xpath("//label[text()='Email']/following::div/input"));
