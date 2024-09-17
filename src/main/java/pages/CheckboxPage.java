@@ -3,8 +3,9 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 public class CheckboxPage extends Page {
     public CheckboxPage(WebDriver driverWeb) {
@@ -29,7 +30,8 @@ public class CheckboxPage extends Page {
     }
 
     public void verifyCheckboxIsChecked(String checkboxName) {
-        WebElement checkbox = dr.findElement(By.cssSelector("#tree-node input[type='checkbox']"));
+        String normalCheckboxName = checkboxName.toLowerCase();
+        WebElement checkbox = dr.findElement(By.cssSelector("#tree-node-" + normalCheckboxName + ""));
         boolean isChecked = checkbox.isSelected();
         assertTrue(isChecked);
     }

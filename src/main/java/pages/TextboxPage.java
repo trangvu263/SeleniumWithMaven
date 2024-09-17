@@ -63,5 +63,6 @@ public class TextboxPage extends Page {
         String cssColor = emailAddress.getCssValue("color");
         String actualColor = Color.fromString(cssColor).asHex();
         assertEquals(expectedColor, (actualColor));
+
     }
 }
