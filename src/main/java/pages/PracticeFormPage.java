@@ -1,9 +1,12 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+
+import java.util.List;
 
 public class PracticeFormPage extends Page {
     public PracticeFormPage(WebDriver driverWeb) {
@@ -46,6 +49,7 @@ public class PracticeFormPage extends Page {
             if(value.equals(fieldName)) {
                 WebElement inputField1 = dr.findElement(By.xpath(xpath1));
                 inputField1.sendKeys(input);
+                return;
             } else {
                 WebElement inputField2 = dr.findElement(By.xpath(xpath2));
                 inputField2.sendKeys(input);
@@ -54,11 +58,44 @@ public class PracticeFormPage extends Page {
     }
 
     public void selectGender(String radioValue) {
-        String xpath = "//input[@value='" + radioValue + "']";
+        String xpath = "//label[text()='" + radioValue + "']";
         WebElement radioButton = dr.findElement(By.xpath(xpath));
         radioButton.click();
     }
 
-    public void selectCheckbox(String sports, String music) {
+    public void selectCheckbox(String value) {
+        String[] checkBoxItem = value.split(", ");
+        for(String item: checkBoxItem) {
+            String xpath = "//label[text()='" + item + "']";
+            WebElement checkboxItem = dr.findElement(By.xpath(xpath));
+            boolean isSelected = checkboxItem.isSelected();
+            if (isSelected == false) {
+                checkboxItem.click();
+            }
+        }
+    }
+
+    public void unSelectCheckbox(String value) {
+        String[] checkBoxItem = value.split(", ");
+        for(String item: checkBoxItem) {
+            String xpath = "//label[text()='" + item + "']";
+            WebElement checkboxItem = dr.findElement(By.xpath(xpath));
+            boolean isSelected = checkboxItem.isSelected();
+            if (isSelected == true) {
+                checkboxItem.click();
+            }
+        }
+    }
+
+    public void uploadPicture(String link) {
+        dr.findElement(By.id("uploadPicture")).sendKeys(link);
+    }
+
+    public void inputStateCity(String fieldName, String input) {
+        String xpath = "//div[text()='" + fieldName + "']";
+        WebElement inputField = dr.findElement(By.xpath(xpath));
+        inputField.click();
+        inputField.sendKeys(input);
+        inputField.sendKeys(Keys.ENTER);
     }
 }
