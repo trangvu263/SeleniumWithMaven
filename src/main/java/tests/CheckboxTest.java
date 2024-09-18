@@ -1,4 +1,5 @@
 package tests;
+import common.TestBase;
 import org.testng.annotations.Test;
 import pages.CheckboxPage;
 import pages.ElementsPage;
@@ -10,11 +11,11 @@ import static common.TestBase.driver;
 public class CheckboxTest extends TestCase {
     @Test
     public void testCheckbox() {
-        HomePage homePage = new HomePage(testBase.driver);
-        ElementsPage elementsPage = new ElementsPage(testBase.driver);
-        CheckboxPage checkboxPage = new CheckboxPage(testBase.driver);
+        HomePage homePage = new HomePage(driver);
+        ElementsPage elementsPage = new ElementsPage(driver);
+        CheckboxPage checkboxPage = new CheckboxPage(driver);
 
-        homePage.clickElements();
+        homePage.clickElements("Elements");
         elementsPage.clickElement("Check Box");
         checkboxPage.selectCheckbox("Home");
         checkboxPage.clickOnExpandIcon("Home");

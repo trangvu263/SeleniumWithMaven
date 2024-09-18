@@ -1,20 +1,23 @@
 package tests;
 
+import common.TestBase;
 import pages.ElementsPage;
 import pages.HomePage;
 import pages.TextboxPage;
 import org.testng.annotations.Test;
+
+import static common.TestBase.driver;
 
 public class TextboxTest extends TestCase {
 
     //TC01
     @Test(groups = "happy case")
     public void submitSuccessfully() {
-        HomePage homePage = new HomePage(testBase.driver);
-        ElementsPage elementsPage = new ElementsPage(testBase.driver);
-        TextboxPage textboxPage = new TextboxPage(testBase.driver);
+        HomePage homePage = new HomePage(driver);
+        ElementsPage elementsPage = new ElementsPage(driver);
+        TextboxPage textboxPage = new TextboxPage(driver);
 
-        homePage.clickElements();
+        homePage.clickElements("Elements");
         elementsPage.clickElement("Text Box");
         textboxPage.inputFullName("Nguyen Van A");
         textboxPage.inputEmail("abc@gmail.com");
@@ -30,11 +33,11 @@ public class TextboxTest extends TestCase {
     //TC02 No @ email
     @Test(groups= "validation cases")
     public void TC02() {
-        HomePage homePage = new HomePage(testBase.driver);
-        ElementsPage elementsPage = new ElementsPage(testBase.driver);
-        TextboxPage textboxPage = new TextboxPage(testBase.driver);
+        HomePage homePage = new HomePage(driver);
+        ElementsPage elementsPage = new ElementsPage(driver);
+        TextboxPage textboxPage = new TextboxPage(driver);
 
-        homePage.clickElements();
+        homePage.clickElements("Elements");
         elementsPage.clickElement("Text Box");
         textboxPage.inputFullName("Nguyen Van A");
         textboxPage.inputEmail("abcgmail.com");
@@ -48,11 +51,11 @@ public class TextboxTest extends TestCase {
     //TC03 No Domain
     @Test
     public void TC03NoDomain() {
-        HomePage homePage = new HomePage(testBase.driver);
-        ElementsPage elementsPage = new ElementsPage(testBase.driver);
-        TextboxPage textboxPage = new TextboxPage(testBase.driver);
+        HomePage homePage = new HomePage(driver);
+        ElementsPage elementsPage = new ElementsPage(driver);
+        TextboxPage textboxPage = new TextboxPage(driver);
 
-        homePage.clickElements();
+        homePage.clickElements("Elements");
         elementsPage.clickElement("Text Box");
         textboxPage.inputFullName("Nguyen Van A");
         textboxPage.inputEmail("abc@gmail");

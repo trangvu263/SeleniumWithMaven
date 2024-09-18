@@ -11,8 +11,9 @@ public class HomePage extends Page {
         super(driverWeb);
     }
 
-    public void clickElements() {
-        WebElement elementsLink = dr.findElement(By.xpath("//h5[contains(text(), 'Elements')]"));
+    public void clickElements(String elementName) {
+        String elementXpath = "//h5[contains(text(), '" + elementName + "')]";
+        WebElement elementsLink = dr.findElement(By.xpath(elementXpath));
         elementsLink.click();
     }
 }
