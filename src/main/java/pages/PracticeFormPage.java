@@ -4,9 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-
-import static java.lang.Thread.sleep;
 
 public class PracticeFormPage extends Page {
     public PracticeFormPage(WebDriver driverWeb) {
@@ -14,11 +13,12 @@ public class PracticeFormPage extends Page {
     }
 
     public void inputDate(String date) {
-        String[] input = date.split(" ");
 
         WebElement dateField = dr.findElement(By.id("dateOfBirthInput"));
         js.executeScript("arguments[0].scrollIntoView(true);", dateField);
         dateField.click();
+
+        String[] input = date.split(" ");
 
         WebElement year = dr.findElement(By.xpath("//*[@class='react-datepicker__year-select']"));
         Select selectYear = new Select(year);
@@ -63,7 +63,7 @@ public class PracticeFormPage extends Page {
         radioButton.click();
     }
 
-    public void selectCheckbox(String value) throws InterruptedException {
+    public void selectCheckbox(String value) {
         String[] checkBoxItem = value.split(", ");
         for(String item: checkBoxItem) {
             String xpath = "//label[text()='" + item + "']";
@@ -89,13 +89,12 @@ public class PracticeFormPage extends Page {
     }
 
     public void uploadPicture(String link) {
-        dr.findElement(By.id("uploadPicture")).sendKeys(link);
+        dr.findElement(By.id("uploadPicture")).sendKeys(System.getProperty("user.dir") + link);
     }
 
     public void inputStateCity(String fieldName, String input) {
-        String xpath = "//div[text()='" + fieldName + "']";
-        WebElement inputField = dr.findElement(By.xpath(xpath));
-        inputField.click();
+        String xpath = "//div[text()='" + fieldName + "']/following::input";
+        WebElement inputField = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
         inputField.sendKeys(input);
         inputField.sendKeys(Keys.ENTER);
     }

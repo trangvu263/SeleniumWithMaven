@@ -24,9 +24,10 @@ public class PracticeFormTest extends TestCase {
         practiceFormPage.inputDate("15 September 1998");
         practiceFormPage.selectSubjects("Math, Chemistry");
         practiceFormPage.selectCheckbox("Sports, Music");
-        practiceFormPage.uploadPicture("resources/Screenshot at Apr 09 11-49-48.png");
+        practiceFormPage.uploadPicture("/resources/image.png");
         practiceFormPage.inputText("Current Address", "Cornelia Street");
         practiceFormPage.inputStateCity("Select State", "Haryana");
+        practiceFormPage.inputStateCity("Select City", "Panipat");
         textboxPage.clickSubmit();
 
     }
