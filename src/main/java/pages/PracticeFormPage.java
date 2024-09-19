@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
-import java.util.List;
+import static java.lang.Thread.sleep;
 
 public class PracticeFormPage extends Page {
     public PracticeFormPage(WebDriver driverWeb) {
@@ -16,17 +16,19 @@ public class PracticeFormPage extends Page {
     public void inputDate(String date) {
         String[] input = date.split(" ");
 
-        dr.findElement(By.id("dateOfBirthInput")).click();
+        WebElement dateField = dr.findElement(By.id("dateOfBirthInput"));
+        js.executeScript("arguments[0].scrollIntoView(true);", dateField);
+        dateField.click();
 
-        WebElement year = dr.findElement(By.xpath("*[class='react-datepicker__year-select']"));
+        WebElement year = dr.findElement(By.xpath("//*[@class='react-datepicker__year-select']"));
         Select selectYear = new Select(year);
-        selectYear.selectByVisibleText("input[2]");
+        selectYear.selectByVisibleText(input[2]);
 
-        WebElement month = dr.findElement(By.xpath("*[class='react-datepicker__month-select']"));
+        WebElement month = dr.findElement(By.xpath("//*[@class='react-datepicker__month-select']"));
         Select selectMonth = new Select(month);
-        selectMonth.selectByVisibleText("input[1]");
+        selectMonth.selectByVisibleText(input[1]);
 
-        String dayPickerXpath = "//div[contains(@class,'react-datepicker__day react-datepicker__day--" + 0 + input[0] + ") and (not(contains(@class,'outside-month')))]";
+        String dayPickerXpath = "//div[contains(@class,'react-datepicker__day react-datepicker__day--" + 0 + input[0] + "') and (not(contains(@class,'outside-month')))]";
         WebElement day = dr.findElement(By.xpath(dayPickerXpath));
         day.click();
     }
@@ -42,19 +44,17 @@ public class PracticeFormPage extends Page {
         String xpath1 = "//label[text()='" + fieldName + "']/following::input[1]";
         //Handle field Current Address
         String xpath2 = "//label[text()='" + fieldName + "']/following::textarea";
-        String[] fieldNameValues = {"Email", "Mobile", "Subjects"};
-
+        String[] fieldNameValues = {"Email", "Mobile"};
 
         for(String value: fieldNameValues) {
             if(value.equals(fieldName)) {
                 WebElement inputField1 = dr.findElement(By.xpath(xpath1));
                 inputField1.sendKeys(input);
                 return;
-            } else {
-                WebElement inputField2 = dr.findElement(By.xpath(xpath2));
-                inputField2.sendKeys(input);
             }
         }
+        WebElement inputField2 = dr.findElement(By.xpath(xpath2));
+        inputField2.sendKeys(input);
     }
 
     public void selectGender(String radioValue) {
@@ -63,13 +63,14 @@ public class PracticeFormPage extends Page {
         radioButton.click();
     }
 
-    public void selectCheckbox(String value) {
+    public void selectCheckbox(String value) throws InterruptedException {
         String[] checkBoxItem = value.split(", ");
         for(String item: checkBoxItem) {
             String xpath = "//label[text()='" + item + "']";
             WebElement checkboxItem = dr.findElement(By.xpath(xpath));
+            js.executeScript("arguments[0].scrollIntoView(true);", checkboxItem);
             boolean isSelected = checkboxItem.isSelected();
-            if (isSelected == false) {
+            if (!isSelected) {
                 checkboxItem.click();
             }
         }
@@ -81,7 +82,7 @@ public class PracticeFormPage extends Page {
             String xpath = "//label[text()='" + item + "']";
             WebElement checkboxItem = dr.findElement(By.xpath(xpath));
             boolean isSelected = checkboxItem.isSelected();
-            if (isSelected == true) {
+            if (isSelected) {
                 checkboxItem.click();
             }
         }
@@ -97,5 +98,15 @@ public class PracticeFormPage extends Page {
         inputField.click();
         inputField.sendKeys(input);
         inputField.sendKeys(Keys.ENTER);
+    }
+
+    public void selectSubjects(String subjectName) {
+        String[] subjects = subjectName.split(", ");
+        WebElement subjectField = dr.findElement(By.xpath("//label[text()='Subjects']/following::input[1]"));
+        subjectField.click();
+        for(String input: subjects) {
+            subjectField.sendKeys(input);
+            subjectField.sendKeys(Keys.ENTER);
+        }
     }
 }

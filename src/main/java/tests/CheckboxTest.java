@@ -1,10 +1,8 @@
 package tests;
-import common.TestBase;
 import org.testng.annotations.Test;
 import pages.CheckboxPage;
 import pages.ElementsPage;
 import pages.HomePage;
-import pages.TextboxPage;
 
 import static common.TestBase.driver;
 

@@ -11,6 +11,7 @@ public class CheckboxPage extends Page {
     public CheckboxPage(WebDriver driverWeb) {
         super(driverWeb);
     }
+
     public void selectCheckbox(String checkboxName) {
         String checkboxXpath = "//span[text()='" + checkboxName + "']/preceding-sibling::span[@class='rct-checkbox']/*[name()='svg']";
         WebElement checkbox = dr.findElement(By.xpath(checkboxXpath));
