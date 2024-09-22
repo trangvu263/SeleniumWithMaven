@@ -13,7 +13,6 @@ public class Page {
     public JavascriptExecutor js;
     public Actions action;
 
-
     public Page(WebDriver driverWeb) {
         this.dr = driverWeb;
         this.wait = new WebDriverWait(dr, Duration.ofSeconds(20));

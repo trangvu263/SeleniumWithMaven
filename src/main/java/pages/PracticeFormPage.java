@@ -1,5 +1,6 @@
 package pages;
 
+import common.TestBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -12,25 +13,53 @@ public class PracticeFormPage extends Page {
         super(driverWeb);
     }
 
+    TestBase testBase = new TestBase();
+
+    public By txtFirstName = By.id("firstName");
+    public By txtLastName = By.id("lastName");
+    public By txtEmail = By.id("userEmail");
+    public By txtMobile = By.id("userNumber");
+    public String genderXpath = "//label[text()='{@param}']/preceding-sibling::input";
+    public By cbSubjects = By.id("subjectsContainer");
+    public String hobbiesXpath = "//label[text()='{@param}']/preceding-sibling::input";
+    public By dateFieldXpath = By.id("dateOfBirthInput");
+    public String yearDrXpath = "//*[@class='react-datepicker__year-select']";
+    public String monthDrXpath = "//*[@class='react-datepicker__month-select']";
+    public String dayXpath = "//div[contains(@class,'react-datepicker__day react-datepicker__day--{@param}') and (not(contains(@class,'outside-month')))]";
+    public By uploadId = By.id("uploadPicture");
+    public By currentAddressId = By.id("currentAddress");
+    public By stateXpath = By.xpath("//div[text()='Select State']/following::input");
+    public By cityXpath = By.xpath("//div[text()='Select City']/following::input");
+    public String rowXpath = "//tbody/tr";
+    public String tableResultXpath = "//tbody/tr[{@param}]/td[2]";
+
     public void inputDate(String date) {
 
-        WebElement dateField = dr.findElement(By.id("dateOfBirthInput"));
-        js.executeScript("arguments[0].scrollIntoView(true);", dateField);
-        dateField.click();
+//        WebElement dateField = dr.findElement(By.id("dateOfBirthInput"));
+////        js.executeScript("arguments[0].scrollIntoView(true);", dateField);
+//        dateField.click();
+        testBase.clickById(dateFieldXpath);
 
         String[] input = date.split(" ");
 
-        WebElement year = dr.findElement(By.xpath("//*[@class='react-datepicker__year-select']"));
-        Select selectYear = new Select(year);
-        selectYear.selectByVisibleText(input[2]);
+//        WebElement year = dr.findElement(By.xpath("//*[@class='react-datepicker__year-select']"));
+//        Select selectYear = new Select(year);
+//        selectYear.selectByVisibleText(input[2]);
+        testBase.selectDrListByXpath(yearDrXpath, input[2]);
 
-        WebElement month = dr.findElement(By.xpath("//*[@class='react-datepicker__month-select']"));
-        Select selectMonth = new Select(month);
-        selectMonth.selectByVisibleText(input[1]);
+//        WebElement month = dr.findElement(By.xpath("//*[@class='react-datepicker__month-select']"));
+//        Select selectMonth = new Select(month);
+//        selectMonth.selectByVisibleText(input[1]);
+        testBase.selectDrListByXpath(monthDrXpath, input[1]);
 
-        String dayPickerXpath = "//div[contains(@class,'react-datepicker__day react-datepicker__day--" + 0 + input[0] + "') and (not(contains(@class,'outside-month')))]";
-        WebElement day = dr.findElement(By.xpath(dayPickerXpath));
-        day.click();
+//        String dayPickerXpath = "//div[contains(@class,'react-datepicker__day react-datepicker__day--" + 0 + input[0] + "') and (not(contains(@class,'outside-month')))]";
+//        WebElement day = dr.findElement(By.xpath(dayPickerXpath));
+//        day.click();
+        testBase.clickByXpath(dayXpath, 0 + input[0]);
+    }
+
+    public String getFormResult() {
+        return testBase.getTableActualValue(rowXpath, tableResultXpath);
     }
 
     public void inputName(String fieldName, String inputName) {
