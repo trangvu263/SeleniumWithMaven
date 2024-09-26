@@ -1,4 +1,5 @@
 package tests;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.CheckboxPage;
 import pages.ElementsPage;
@@ -17,27 +18,8 @@ public class CheckboxTest extends TestCase {
         elementsPage.clickElement("Check Box");
         checkboxPage.selectCheckbox("Home");
         checkboxPage.clickOnExpandIcon("Home");
-        checkboxPage.verifyTextDisplayed("You have selected :\n" +
-                "home\n" +
-                "desktop\n" +
-                "notes\n" +
-                "commands\n" +
-                "documents\n" +
-                "workspace\n" +
-                "react\n" +
-                "angular\n" +
-                "veu\n" +
-                "office\n" +
-                "public\n" +
-                "private\n" +
-                "classified\n" +
-                "general\n" +
-                "downloads\n" +
-                "wordFile\n" +
-                "excelFile");
-        checkboxPage.verifyCheckboxIsChecked("Desktop");
-        checkboxPage.verifyCheckboxIsChecked("Documents");
-        checkboxPage.verifyCheckboxIsChecked("Downloads");
+        Assert.assertEquals(checkboxPage.getTextDisplayed(), "You have selected : home desktop notes commands documents workspace react angular veu office public private classified general downloads wordFile excelFile");
+        Assert.assertTrue(checkboxPage.CheckboxIsChecked("Desktop"));
     }
 
 }

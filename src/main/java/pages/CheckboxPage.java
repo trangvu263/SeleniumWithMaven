@@ -4,8 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
+import java.util.List;
 
 public class CheckboxPage extends Page {
     public CheckboxPage(WebDriver driverWeb) {
@@ -24,16 +23,19 @@ public class CheckboxPage extends Page {
         expandIcon.click();
     }
 
-    public void verifyTextDisplayed(String expectedResult) {
-        WebElement result = dr.findElement(By.xpath("//div[@id='result']"));
-        String actualResult = result.getText();
-        assertEquals(expectedResult, (actualResult));
+    public String getTextDisplayed() {
+        List<WebElement> elements = dr.findElements(By.xpath("//div[@id='result']/span"));
+        String actualResult = "";
+        for (WebElement element : elements) {
+            actualResult = actualResult + " " + element.getText();
+        }
+        return actualResult.trim();
     }
 
-    public void verifyCheckboxIsChecked(String checkboxName) {
+    public boolean CheckboxIsChecked(String checkboxName) {
         String normalCheckboxName = checkboxName.toLowerCase();
         WebElement checkbox = dr.findElement(By.cssSelector("#tree-node-" + normalCheckboxName + ""));
         boolean isChecked = checkbox.isSelected();
-        assertTrue(isChecked);
+        return isChecked;
     }
 }
