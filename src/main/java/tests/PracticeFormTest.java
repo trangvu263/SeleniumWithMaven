@@ -3,19 +3,38 @@ package tests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.*;
+import tests.models.StudentRegister;
+
 import static common.TestBase.driver;
 
 public class PracticeFormTest extends TestCase {
 
     @Test
     public void inputSuccessfully() {
-        HomePage homePage = new HomePage(driver);
-        ElementsPage elementsPage = new ElementsPage(driver);
-        PracticeFormPage practiceFormPage = new PracticeFormPage(driver);
-        TextboxPage textboxPage = new TextboxPage(driver);
+//        HomePage homePage = new HomePage(driver);
+//        ElementsPage elementsPage = new ElementsPage(driver);
 
-        homePage.clickElements("Forms");
-        elementsPage.clickElement("Practice Form");
+        PracticeFormPage practiceFormPage = new PracticeFormPage(driver);
+        practiceFormPage.openPraticeForms();
+
+        TextboxPage textboxPage = new TextboxPage(driver);
+        StudentRegister studentRegister = new StudentRegister();
+        studentRegister.firstName = "Tracy";
+        studentRegister.lastName = "Phan";
+        studentRegister.email = "abc@gmail.com";
+        studentRegister.gender = "Male";
+        studentRegister.mobilePhone = "0123456789";
+        studentRegister.dayOfBirthday = "15 September 1998";
+        studentRegister.monthOfBirthday = "Maths, English";
+        studentRegister.yearOfBirthday = "Sports, Music";
+        studentRegister.subjects = "Maths, English";
+        studentRegister.hobbies = "Sports, Music";
+        studentRegister.uploadPicture = "/resources/image.png";
+        studentRegister.currentAddress = "Cornelia Street";
+        studentRegister.state = "Haryana";
+        studentRegister.city = "Panipat";
+
+        practiceFormPage.inputData(studentRegister);
 
         String expectedResult =
                 "Student Name = Tracy Phan\n" +
@@ -29,18 +48,6 @@ public class PracticeFormTest extends TestCase {
                         "Address = Cornelia Street\n" +
                         "State and City = Haryana Panipat";
 
-        testBase.inputTextById(practiceFormPage.txtFirstName, "Tracy");
-        testBase.inputTextById(practiceFormPage.txtLastName, "Phan");
-        testBase.inputTextById(practiceFormPage.txtEmail, "abc@gmail.com");
-        testBase.selectRadioButtonByXpath(practiceFormPage.genderXpath, "Male");
-        testBase.inputTextById(practiceFormPage.txtMobile, "0123456789");
-        practiceFormPage.inputDate("15 September 1998");
-        testBase.inputMultiValuesToComboBox(practiceFormPage.cbSubjects,"Maths, English");
-        testBase.selectCheckboxByXpath(practiceFormPage.hobbiesXpath, "Sports, Music");
-        testBase.uploadById(practiceFormPage.uploadId, "/resources/image.png");
-        testBase.inputTextById(practiceFormPage.currentAddressId, "Cornelia Street");
-        testBase.inputMultiValuesToComboBox(practiceFormPage.stateXpath, "Haryana");
-        testBase.inputMultiValuesToComboBox(practiceFormPage.cityXpath, "Panipat");
         textboxPage.clickSubmit();
         Assert.assertEquals(practiceFormPage.getFormResult(), testBase.getExpectedTableValue(expectedResult));
     }

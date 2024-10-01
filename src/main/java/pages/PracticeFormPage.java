@@ -4,6 +4,7 @@ import common.TestBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import tests.models.StudentRegister;
 
 import java.util.Map;
 
@@ -47,5 +48,20 @@ public class PracticeFormPage extends Page {
 
     public Map<String, String> getFormResult() {
         return testBase.getActualTableValue(rowXpath, columnXpath, cellXpath);
+    }
+
+    public void inputData(StudentRegister studentRegister) {
+        testBase.inputTextById(txtFirstName, studentRegister.firstName);
+        testBase.inputTextById(txtLastName, studentRegister.lastName);
+        testBase.inputTextById(txtEmail, studentRegister.email);
+        testBase.selectRadioButtonByXpath(genderXpath, studentRegister.gender);
+        testBase.inputTextById(txtMobile, studentRegister.mobilePhone);
+        inputDate(studentRegister.dayOfBirthday);
+        testBase.inputMultiValuesToComboBox(cbSubjects,studentRegister.subjects);
+        testBase.selectCheckboxByXpath(hobbiesXpath, studentRegister.hobbies);
+        testBase.uploadById(uploadId, studentRegister.uploadPicture);
+        testBase.inputTextById(currentAddressId, studentRegister.currentAddress);
+        testBase.inputMultiValuesToComboBox(stateXpath, studentRegister.state);
+        testBase.inputMultiValuesToComboBox(cityXpath, studentRegister.city);
     }
 }
