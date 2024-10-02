@@ -25,6 +25,11 @@ public class Page {
         dr.navigate().to("https://demoqa.com/automation-practice-form");
         PracticeFormPage praticeForm = new PracticeFormPage(testBase.driver);
         return praticeForm;
+    }
 
+    public WebTablePage openWebTablePage() {
+        dr.navigate().to("https://demoqa.com/webtables");
+        WebTablePage openWebTablePage = new WebTablePage(testBase.driver);
+        return openWebTablePage;
     }
 }

@@ -51,16 +51,16 @@ public class PracticeFormPage extends Page {
     }
 
     public void inputData(StudentRegister studentRegister) {
-        testBase.inputTextById(txtFirstName, studentRegister.firstName);
-        testBase.inputTextById(txtLastName, studentRegister.lastName);
-        testBase.inputTextById(txtEmail, studentRegister.email);
+        testBase.inputText(txtFirstName, studentRegister.firstName);
+        testBase.inputText(txtLastName, studentRegister.lastName);
+        testBase.inputText(txtEmail, studentRegister.email);
         testBase.selectRadioButtonByXpath(genderXpath, studentRegister.gender);
-        testBase.inputTextById(txtMobile, studentRegister.mobilePhone);
+        testBase.inputText(txtMobile, studentRegister.mobilePhone);
         inputDate(studentRegister.dayOfBirthday);
         testBase.inputMultiValuesToComboBox(cbSubjects,studentRegister.subjects);
         testBase.selectCheckboxByXpath(hobbiesXpath, studentRegister.hobbies);
         testBase.uploadById(uploadId, studentRegister.uploadPicture);
-        testBase.inputTextById(currentAddressId, studentRegister.currentAddress);
+        testBase.inputText(currentAddressId, studentRegister.currentAddress);
         testBase.inputMultiValuesToComboBox(stateXpath, studentRegister.state);
         testBase.inputMultiValuesToComboBox(cityXpath, studentRegister.city);
     }

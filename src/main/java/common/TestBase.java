@@ -30,7 +30,7 @@ public class TestBase {
         driver.quit();
     }
 
-    public void inputTextById(By txtInput, String value) {
+    public void inputText(By txtInput, String value) {
         WebElement firstName = driver.findElement(txtInput);
         firstName.sendKeys(value);
     }
