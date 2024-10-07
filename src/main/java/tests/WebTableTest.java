@@ -7,21 +7,12 @@ import tests.models.EmployeeRegister;
 public class WebTableTest extends TestCase {
 
     @Test
-    public void search() {
+    public void search() throws InterruptedException {
         WebTablePage webTablePage = new WebTablePage(testBase.driver);
         webTablePage.openWebTablePage();
-        testBase.inputText(webTablePage.searchXpath, "ie");
-
-        EmployeeRegister employeeRegister = new EmployeeRegister();
-
-        employeeRegister.firstName = "Cierra";
-        employeeRegister.lastName = "Vega";
-        employeeRegister.age = "39";
-        employeeRegister.email = "cierra@example.com";
-        employeeRegister.salary = "10000";
-        employeeRegister.department = "Insurance";
-
-
-
+        testBase.inputText(webTablePage.searchXpath, "ra");
+//        webTablePage.isFirstNameChecked("ie");
+        System.out.println(webTablePage.isFirstNameChecked("ra"));
+        Thread.sleep(5000);
     }
 }
