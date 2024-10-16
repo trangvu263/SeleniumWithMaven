@@ -24,7 +24,7 @@ public class PracticeFormTest extends TestCase {
         studentRegister.email = "abc@gmail.com";
         studentRegister.gender = "Male";
         studentRegister.mobilePhone = "0123456789";
-        studentRegister.dayOfBirthday = "15 September 1998";
+        studentRegister.dayOfBirth = "15 September 1998";
         studentRegister.subjects = "Maths, English";
         studentRegister.hobbies = "Sports, Music";
         studentRegister.uploadPicture = "/resources/image.png";

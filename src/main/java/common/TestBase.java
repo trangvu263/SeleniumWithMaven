@@ -1,10 +1,13 @@
 package common;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.safari.SafariDriver;
+import org.openqa.selenium.safari.SafariOptions;
 import org.openqa.selenium.support.ui.*;
 
 import java.time.Duration;
@@ -16,14 +19,45 @@ public class TestBase {
     public static WebDriver driver;
     public static WebDriverWait wait;
 
-    public void openWeb() {
-        String projectPath = System.getProperty("user.dir");
-        System.setProperty("webdriver.chrome.driver", projectPath + "/driver/chromedriver");
-        driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+    public TestBase(String configFile) {
+        Configurations config = new Configurations(configFile);
+    }
 
-        driver.get("https://demoqa.com");
+    public void openSingleBrowser(String url, String browser) {
+        String downloadPath = System.getProperty("user.dir") + "\\testdata\\";
+
+        if (browser.equalsIgnoreCase("chrome")) {
+            ChromeOptions options = new ChromeOptions();
+            options.setExperimentalOption("prefs", Map.of(
+                    "download.default_directory", downloadPath,
+                    "download.prompt_for_download", false,
+                    "directory_upgrade", true));
+            driver = new ChromeDriver(options);
+
+//            options.addArguments("headless");
+//            String projectPath = System.getProperty("user.dir");
+//            System.setProperty("webdriver.chrome.driver", projectPath + "/driver/chromedriver");
+//            driver = new ChromeDriver();
+        }
+        else if (browser.equalsIgnoreCase("edge")) {
+            EdgeOptions options = new EdgeOptions();
+            options.setExperimentalOption("prefs", Map.of(
+                    "download.default_directory", downloadPath,
+                    "download.prompt_for_download", false,
+                    "directory_upgrade", true));
+            driver = new EdgeDriver(options);        }
+
+        else if (browser.equalsIgnoreCase("safari")) {
+            SafariOptions options = new SafariOptions();
+//            options.setExperimentalOption("prefs", Map.of(
+//                    "download.default_directory", downloadPath,
+//                    "download.prompt_for_download", false,
+//                    "directory_upgrade", true));
+            driver = new SafariDriver(options);        }
+
+        driver.get("url");
         driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
     }
 
     public void closeWeb() {
@@ -128,6 +162,25 @@ public class TestBase {
         }
         return expectedResultMap;
     }
+
+    public void scrollToElement(By byLocator) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        WebElement element = driver.findElement(byLocator);
+        js.executeScript("arguments[0].scrollIntoView(true);", element);
+    }
+
+    public String getTextByLocator(By byLocator) {
+        String result = "";
+        driver.findElement(byLocator).getText();
+        return result;
+    }
+
+    public void waitForElementToBeVisible(By locator) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1000));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
+
+
 }
 
 

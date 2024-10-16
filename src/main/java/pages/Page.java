@@ -5,6 +5,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pages.BookStore.LoginPage;
 
 import java.time.Duration;
 
@@ -31,5 +32,11 @@ public class Page {
         dr.navigate().to("https://demoqa.com/webtables");
         WebTablePage openWebTablePage = new WebTablePage(testBase.driver);
         return openWebTablePage;
+    }
+
+    public LoginPage openLoginPage() {
+        dr.navigate().to("https://demoqa.com/login");
+        LoginPage loginPage = new LoginPage(dr);
+        return loginPage;
     }
 }

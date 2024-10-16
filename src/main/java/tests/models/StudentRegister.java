@@ -6,7 +6,7 @@ public class StudentRegister {
     public String email ;
     public String gender;
     public String mobilePhone ;
-    public String dayOfBirthday ;
+    public String dayOfBirth ;
     public String monthOfBirthday ;
     public String yearOfBirthday ;
     public String subjects ;
